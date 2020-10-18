@@ -6,7 +6,7 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by joppe         #+#    #+#                  #
-#    Updated: 2020/10/18 21:59:19 by joppe         ########   odam.nl          #
+#    Updated: 2020/10/19 00:25:22 by joppe         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME      	:= 2voor12
 
 CC          := gcc
-CFLAGS      := -Wall -Wextra -Werror
+CFLAGS      := -Wall -Wextra -Werror -Wuninitialized
 
 HEADERDIR	:= includes
 SRCDIR      := src
@@ -29,7 +29,7 @@ OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJE
 $(NAME): all
 
 all: directories $(OBJECTS)
-	$(CC) $(CFLAGS) ${LIBS} -I ${HEADERDIR}/ $(OBJECTS) -o $(NAME)
+	$(CC) $(CFLAGS) -I ${HEADERDIR}/ $(OBJECTS) -o $(NAME) ${LIBS}
 
 clean:
 	/bin/rm -rf $(BUILDDIR)/*
@@ -43,6 +43,6 @@ directories:
 	@mkdir -p $(BUILDDIR)
 
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
-	$(CC) $(CFLAGS) -I ${HEADERDIR}/ -c $< -o $@
+	$(CC) $(CFLAGS) -I ${HEADERDIR}/ -c $< -o $@ $(LIBS)
 
 .PHONY: all clean fclean re directories
