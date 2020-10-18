@@ -1,0 +1,8 @@
+*.o
+.vscode/
+.DS_Store
+tmp/
+a.out
+bin/
+obj/
+tester/
